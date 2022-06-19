@@ -1,0 +1,7 @@
+PORT = "your_port"
+JWT_KEYS = "your_key"
+
+HOST = "your_hostname"
+USER = "your_username"
+PASSWORD = "your_password"
+DB_NAME = "your_dbname"
