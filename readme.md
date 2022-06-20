@@ -26,8 +26,8 @@ You are all set!
 
 
 ## API Documentation
-- GET [`/users/`](https://) (get all users)
-- GET [`/vehicles/`](https://) (get all vehicles)
+- GET [`/users/`](https://my-go-backend.herokuapp.com/users/) (get all users)
+- GET [`/vehicles/`](https://my-go-backend.herokuapp.com/vehicles/) (get all vehicles)
 
 ## Built with
 
