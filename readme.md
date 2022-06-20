@@ -1,4 +1,4 @@
-## 🛠️ Installation Steps
+## Installation Steps
 
 1. Clone the repository
 
@@ -22,9 +22,14 @@ go run *.go serve
 go run main.go serve
 ```
 
-🌟 You are all set!
+You are all set!
 
-## 💻 Built with
+
+## API Documentation
+GET [`/users/`](https://) (get all users)
+GET [`/vehicles/`](https://) (get all vehicles)
+
+## Built with
 
 -   [Golang](https://go.dev/)
 -   [gorilla/mux](https://github.com/gorilla/mux): for handle http request
