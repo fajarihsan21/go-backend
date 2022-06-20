@@ -1,1 +1,1 @@
-web: bin/go-backend server
+web: bin/go-backend serve
