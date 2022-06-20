@@ -3,32 +3,30 @@ package database
 import (
 	"errors"
 	"fmt"
-	"log"
 	"os"
 	"time"
 
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func getEnv(key string) string {
+// func getEnv(key string) string {
 
-	err := godotenv.Load(".env")
+// 	err := godotenv.Load(".env")
 
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
+// 	if err != nil {
+// 		log.Fatalf("Error loading .env file")
+// 	}
 
-	return os.Getenv(key)
-}
+// 	return os.Getenv(key)
+// }
 
 func New() (*gorm.DB, error) {
 
-	host := getEnv("HOST")
-	user := getEnv("USER")
-	password := getEnv("PASSWORD")
-	dbName := getEnv("DB_NAME")
+	host := os.Getenv("HOST")
+	user := os.Getenv("USER")
+	password := os.Getenv("PASSWORD")
+	dbName := os.Getenv("DB_NAME")
 
 	config := fmt.Sprintf("host=%s user=%s password=%s dbname=%s",
 		host, user, password, dbName)
