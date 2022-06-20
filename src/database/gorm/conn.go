@@ -30,7 +30,7 @@ func New() (*gorm.DB, error) {
 	password := getEnv("PASSWORD")
 	dbName := getEnv("DB_NAME")
 
-	config := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
+	config := fmt.Sprintf("host=%s user=%s password=%s dbname=%s",
 		host, user, password, dbName)
 
 	gormDB, err := gorm.Open(postgres.Open(config), &gorm.Config{})
