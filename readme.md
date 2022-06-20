@@ -26,8 +26,8 @@ You are all set!
 
 
 ## API Documentation
-GET [`/users/`](https://) (get all users)
-GET [`/vehicles/`](https://) (get all vehicles)
+- GET [`/users/`](https://) (get all users)
+- GET [`/vehicles/`](https://) (get all vehicles)
 
 ## Built with
 
