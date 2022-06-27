@@ -65,9 +65,13 @@ func (rep *user_ctrl) AddData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
 	var data models.User
-	json.NewDecoder(r.Body).Decode(&data)
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		helpers.ERROR(w, http.StatusBadRequest, err)
+		return
+	}
 
-	err := helpers.Validate(data)
+	err = helpers.Validate(data)
 	if err != nil {
 		helpers.ERROR(w, http.StatusBadRequest, err)
 		return

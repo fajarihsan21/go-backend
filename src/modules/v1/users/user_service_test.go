@@ -93,7 +93,7 @@ func TestDelete(t *testing.T) {
 	data, err := service.Delete(deleteId)
 
 	result := data.Message
-	assert.Equal(t, "OK", result, "Expect delete succesfully")
+	assert.Equal(t, "OK", result, "Expect status = 200")
 	assert.Nil(t, err)
 }
 

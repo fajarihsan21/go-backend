@@ -80,8 +80,10 @@ func ERROR(w http.ResponseWriter, statusCode int, err error) {
 func Validate(data interface{}) error {
 	v := validator.New()
 	err := v.Struct(data)
-	for _, e := range err.(validator.ValidationErrors) {
-		return e
+	if err != nil {
+		for _, e := range err.(validator.ValidationErrors) {
+			return e
+		}
 	}
 	return nil
 }

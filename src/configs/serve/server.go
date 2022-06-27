@@ -19,17 +19,36 @@ func serve(cmd *cobra.Command, args []string) error {
 	if mainRoute, err := routers.New(); err == nil {
 		var addrs string = "127.0.0.1:8080"
 
-		if pr := os.Getenv("PORT"); pr != "" {
-			addrs = ":" + pr
+		port := os.Getenv("APP_PORT")
+
+		if port != "" {
+			addrs = ":" + port
 		}
 
-		log.Println("App running on " + addrs)
+		log.Println("App running")
 
-		if err := http.ListenAndServe(addrs, mainRoute); err != nil {
+		err := http.ListenAndServe(addrs, mainRoute)
+
+		if err != nil {
 			return err
 		}
+
 		return nil
 	} else {
 		return err
 	}
+
+	// 	if pr := os.Getenv("PORT"); pr != "" {
+	// 		addrs = ":" + pr
+	// 	}
+
+	// 	log.Println("App running on " + addrs)
+
+	// 	if err := http.ListenAndServe(addrs, mainRoute); err != nil {
+	// 		return err
+	// 	}
+	// 	return nil
+	// } else {
+	// 	return err
+	// }
 }
