@@ -2,21 +2,21 @@ package vehicles
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
 	"github.com/fajarihsan21/go-backend/src/database/gorm/models"
 	"github.com/fajarihsan21/go-backend/src/helpers"
+	"github.com/fajarihsan21/go-backend/src/interfaces"
 
 	"github.com/gorilla/mux"
 )
 
 type vehicle_ctrl struct {
-	repo *vehicle_repo
+	repo interfaces.VhcService
 }
 
-func NewCtrl(rep *vehicle_repo) *vehicle_ctrl {
+func NewCtrl(rep interfaces.VhcService) *vehicle_ctrl {
 	return &vehicle_ctrl{rep}
 }
 
@@ -37,7 +37,7 @@ func (rep *vehicle_ctrl) GetAllVhcl(w http.ResponseWriter, r *http.Request) {
 func (rep *vehicle_ctrl) AddData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var data models.Vehicles
+	var data models.Vehicle
 	json.NewDecoder(r.Body).Decode(&data)
 
 	err := helpers.Validate(data)
@@ -58,38 +58,44 @@ func (rep *vehicle_ctrl) AddData(w http.ResponseWriter, r *http.Request) {
 func (rep *vehicle_ctrl) DeleteData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var data = mux.Vars(r)
-	id, _ := strconv.Atoi(data["id_vehicle"])
-
-	result, err := rep.repo.Delete(&id)
-
+	var data = mux.Vars(r)["id_vehicle"]
+	id, err := strconv.ParseUint(data, 10, 64)
 	if err != nil {
-		helpers.ERROR(w, http.StatusInternalServerError, err)
+		helpers.ERROR(w, http.StatusBadRequest, err)
+		return
 	}
 
-	helpers.JSON(w, http.StatusOK, &result)
+	result, err := rep.repo.Delete(id)
+	if err != nil {
+		helpers.ERROR(w, http.StatusBadRequest, err)
+		return
+	}
+
+	result.Send(w)
 }
 
 // UPDATE DATA
 func (rep *vehicle_ctrl) Update(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	var vhl *models.Vehicles
-	var data = mux.Vars(r)["id_vehicle"]
+	var data = r.URL.Query()
+	var vhc models.Vehicle
 
-	json.NewDecoder(r.Body).Decode(&vhl)
+	json.NewDecoder(r.Body).Decode(&vhc)
 
-	err := helpers.Validate(vhl)
+	err := helpers.Validate(vhc)
 	if err != nil {
 		helpers.ERROR(w, http.StatusBadRequest, err)
 		return
 	}
 
-	id, _ := strconv.Atoi(data)
-	result, err := rep.repo.Update(&id, vhl)
+	id, err := strconv.ParseUint(data["id_vehicle"][0], 10, 64)
 	if err != nil {
-		fmt.Fprint(w, err.Error())
+		helpers.ERROR(w, http.StatusBadRequest, err)
 	}
-
-	json.NewEncoder(w).Encode(&result)
+	res, err := rep.repo.Update(id, &vhc)
+	if err != nil {
+		helpers.ERROR(w, http.StatusBadRequest, err)
+	}
+	res.Send(w)
 }

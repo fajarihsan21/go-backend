@@ -6,6 +6,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -22,7 +23,7 @@ import (
 // }
 
 func New() (*gorm.DB, error) {
-	// err := godotenv.Load()
+	_ = godotenv.Load()
 
 	// if err != nil {
 	// 	log.Fatal("Error loading .env file")

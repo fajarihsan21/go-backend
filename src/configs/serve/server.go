@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/fajarihsan21/go-backend/src/routers"
+	"github.com/rs/cors"
 	"github.com/spf13/cobra"
 )
 
@@ -27,7 +28,9 @@ func serve(cmd *cobra.Command, args []string) error {
 
 		log.Println("App running")
 
-		err := http.ListenAndServe(addrs, mainRoute)
+		c := cors.AllowAll()
+
+		err := http.ListenAndServe(addrs, c.Handler(mainRoute))
 
 		if err != nil {
 			return err

@@ -9,6 +9,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/newrelic/go-agent/v3 v3.16.1
 	github.com/newrelic/go-agent/v3/integrations/nrgorilla v1.1.1
+	github.com/rs/cors v1.8.2
 	github.com/spf13/cobra v1.4.0
 	github.com/stretchr/testify v1.7.2
 	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e

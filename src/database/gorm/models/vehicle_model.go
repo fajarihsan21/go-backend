@@ -1,6 +1,6 @@
 package models
 
-type Vehicles struct {
+type Vehicle struct {
 	Id_vehicle  uint   `gorm:"primaryKey" json:"id_vehicle"`
 	VehicleName string `json:"vehicle_name"`
 	Price       string `json:"price"`
@@ -12,4 +12,4 @@ type Vehicles struct {
 	Image       string `json:"image"`
 }
 
-type Vehicle []Vehicles
+type Vehicles []Vehicles
