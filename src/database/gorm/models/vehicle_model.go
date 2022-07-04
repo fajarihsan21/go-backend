@@ -12,4 +12,4 @@ type Vehicle struct {
 	Image       string `json:"image"`
 }
 
-type Vehicles []Vehicles
+type Vehicles []Vehicle

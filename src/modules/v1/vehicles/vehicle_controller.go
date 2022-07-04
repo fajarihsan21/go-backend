@@ -33,6 +33,34 @@ func (rep *vehicle_ctrl) GetAllVhcl(w http.ResponseWriter, r *http.Request) {
 	helpers.JSON(w, http.StatusOK, data)
 }
 
+// GET BY ID
+func (rep *vehicle_ctrl) GetId(w http.ResponseWriter, r *http.Request) {
+	data := mux.Vars(r)["id_vehicle"]
+	id, err := strconv.ParseUint(data, 10, 64)
+	if err != nil {
+		helpers.ERROR(w, http.StatusBadRequest, err)
+		return
+	}
+
+	result, err := rep.repo.FindIdVhc(id)
+	if err != nil {
+		helpers.ERROR(w, http.StatusBadRequest, err)
+	}
+	result.Send(w)
+}
+
+// GET EMAIL
+func (rep *vehicle_ctrl) FindEmail(w http.ResponseWriter, r *http.Request) {
+	var data models.Vehicle
+	json.NewDecoder(r.Body).Decode(&data)
+
+	result, err := rep.repo.FindName(data.VehicleName)
+	if err != nil {
+		helpers.ERROR(w, http.StatusBadRequest, err)
+	}
+	result.Send(w)
+}
+
 // CREATE DATA
 func (rep *vehicle_ctrl) AddData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
