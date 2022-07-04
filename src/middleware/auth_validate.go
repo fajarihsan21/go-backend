@@ -14,7 +14,8 @@ func CheckAuth(next http.HandlerFunc) http.HandlerFunc {
 		headerToken := r.Header.Get("Authorization")
 
 		if !strings.Contains(headerToken, "Bearer") {
-			help.ResJSON(401, "Invalid Header Type").Send(w)
+			http.Error(w, "Invalid Header Type", http.StatusBadRequest)
+			// help.ResJSON(401, "Invalid Header Type").Send(w)
 			return
 		}
 
