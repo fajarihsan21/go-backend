@@ -41,6 +41,16 @@ func (re *vehicle_service) FindName(name string) (*help.Response, error) {
 
 	res := help.ResJSON(200, data)
 	return res, nil
+
+}
+func (re *vehicle_service) FindCategory(category string) (*help.Response, error) {
+	data, err := re.rep.FindCategory(category)
+	if err != nil {
+		return nil, err
+	}
+
+	res := help.ResJSON(200, data)
+	return res, nil
 }
 
 func (re *vehicle_service) Add(data *models.Vehicle) (*help.Response, error) {

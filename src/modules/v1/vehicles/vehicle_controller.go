@@ -49,12 +49,25 @@ func (rep *vehicle_ctrl) GetId(w http.ResponseWriter, r *http.Request) {
 	result.Send(w)
 }
 
-// GET EMAIL
-func (rep *vehicle_ctrl) FindEmail(w http.ResponseWriter, r *http.Request) {
+// GET Name
+func (rep *vehicle_ctrl) FindName(w http.ResponseWriter, r *http.Request) {
 	var data models.Vehicle
 	json.NewDecoder(r.Body).Decode(&data)
 
 	result, err := rep.repo.FindName(data.VehicleName)
+	if err != nil {
+		helpers.ERROR(w, http.StatusBadRequest, err)
+	}
+	result.Send(w)
+
+}
+
+// GET Category
+func (rep *vehicle_ctrl) FindCategory(w http.ResponseWriter, r *http.Request) {
+	var data models.Vehicle
+	json.NewDecoder(r.Body).Decode(&data)
+
+	result, err := rep.repo.FindCategory(data.Category)
 	if err != nil {
 		helpers.ERROR(w, http.StatusBadRequest, err)
 	}

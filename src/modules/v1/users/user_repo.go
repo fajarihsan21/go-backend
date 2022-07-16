@@ -27,13 +27,13 @@ func (r *user_repo) FindAll() (*models.Users, error) {
 }
 
 func (r *user_repo) FindId(id uint64) (*models.User, error) {
-	var users models.User
-	result := r.db.First(&users, "id_user = ?", id)
+	var user models.User
+	result := r.db.Where("id_user = ?", id).Find(&user)
 
 	if result.Error != nil {
 		return nil, errors.New("failed getting user id")
 	}
-	return &users, nil
+	return &user, nil
 }
 
 func (r *user_repo) FindEmail(email string) (*models.User, error) {

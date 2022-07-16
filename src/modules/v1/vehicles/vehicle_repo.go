@@ -43,6 +43,17 @@ func (r *vehicle_repo) FindName(name string) (*models.Vehicle, error) {
 		return nil, errors.New("failed getting Vehicle Name")
 	}
 	return &data, nil
+
+}
+
+func (r *vehicle_repo) FindCategory(category string) (*models.Vehicle, error) {
+	var data models.Vehicle
+	result := r.db.First(&data, "category = ?", category)
+
+	if result.Error != nil {
+		return nil, errors.New("failed getting Vehicle Name")
+	}
+	return &data, nil
 }
 
 func (r *vehicle_repo) Add(data *models.Vehicle) (*models.Vehicle, error) {
